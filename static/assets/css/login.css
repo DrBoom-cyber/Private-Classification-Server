@@ -1,0 +1,30 @@
+body {
+    background-color: #d3d3d3;
+}
+
+.bounded-padding {
+    padding: 2rem;
+    align-self: center;
+    width: 20%;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+#submit-btn {
+    width: 50%;
+    margin: auto;
+}
+
+.entry-box {
+    margin-bottom: .5rem;
+}

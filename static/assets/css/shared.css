@@ -1,0 +1,41 @@
+
+h3{
+    font-family: 'Open Sans';
+    font-weight: 700;
+    color: #1E90FF;
+    font-size: 2rem;
+    margin: 0;
+}
+p {
+    color: rgb(87, 86, 86);
+    margin: 0;
+    font-size: 1rem;
+}
+input {
+    color: rgb(87, 86, 86);
+}
+input:active {
+    color: rgb(87, 86, 86);
+}
+
+.btn.btn-primary {
+    background-color: #1E90FF;
+    color: white;
+    border-radius: 50px;
+    border-color: #1E90FF;
+    padding: .25rem;
+}
+.btn.btn-primary:hover{
+    background-color: #1b73cc;
+}
+.text-center {
+    text-align: center !important;
+}
+.text-left {
+    text-align: left !important;
+}
+.center {
+    margin: auto;
+    align-self: center;
+    justify-content: center;
+}
