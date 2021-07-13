@@ -7,12 +7,19 @@ from flask import Flask
 #Authentication
 from flask import session
 from flask import abort, redirect, url_for
-from flask_login import LoginManager, login_required, login_user, logout_user
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user
+
+#Database
+from flask_sqlalchemy import SQLAlchemy
+
+#Create application
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 #Backend
 from backend import User
-
-app = Flask(__name__)
 
 app.config.update(
     SECRET_KEY = 'temp_key'
@@ -22,11 +29,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-users = [User(id) for id in range(5)]
-
 @app.route('/')
 def index():
-    return redirect('login');
+    return redirect('login')
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -34,19 +39,18 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        for user in users:
-            if user.username == username:
-                if user.password == password:
-                    login_user(user)
-                    return redirect('classify')
-        return abort(401)
+        user = User.query.filter_by(username = username).first()
+        if user.verify_password(password):
+            return redirect(request.next or 'classify')
+        else:
+            return abort(401)
     else:
         return render_template('login.html')
 
 @app.route('/logout')
 @login_required
 def logout():
-    logout_user()
+    logout_user(current_user)
     return Response('<p>Logged out</p>')
 
 @app.errorhandler(401)
@@ -60,4 +64,4 @@ def load_user(user_id):
 @app.route('/classify')
 @login_required
 def home():
-    return render_template('index.html')
+    return render_template('index.html', name = current_user.username)
