@@ -18,8 +18,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-#Backend
-from backend import User
+#Local database objects
+from database import User
 
 app.config.update(
     SECRET_KEY = 'temp_key'
