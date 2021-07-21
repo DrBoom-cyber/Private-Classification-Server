@@ -1,10 +1,11 @@
 function submitLoginInfo() {
-    var username = document.getElementById('user-name-input').innerHTML;
-    var password = document.getElementById('password-input').innerHTML;
+    var username = document.getElementById('user-name-input').value;
+    var password = document.getElementById('password-input').value;
     
     $.ajax({
-        type: "POST",
+        type: 'POST',
         url: "login",
-        data: {username: username, password: password}
-    })
+        data: {username: username, password: password},
+        dataType: "text"
+      });
 }

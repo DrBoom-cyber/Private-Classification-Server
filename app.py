@@ -33,16 +33,16 @@ login_manager.login_view = 'login'
 def index():
     return redirect('login')
 
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login', methods = ['GET','POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form.get['username']
+        password = request.form.get['password']
 
         user = User.query.filter_by(username = username).first()
         if not user is None:
             if user.verify_password(password):
-                return redirect(request.next or 'classify')
+                return redirect('classify')
             else:
                 return abort(401, description = 'Password is incorrect')
         else:
