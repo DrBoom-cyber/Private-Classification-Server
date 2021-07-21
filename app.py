@@ -40,10 +40,13 @@ def login():
         password = request.form['password']
 
         user = User.query.filter_by(username = username).first()
-        if user.verify_password(password):
-            return redirect(request.next or 'classify')
+        if not user is None:
+            if user.verify_password(password):
+                return redirect(request.next or 'classify')
+            else:
+                return abort(401, description = 'Password is incorrect')
         else:
-            return abort(401)
+            return abort(401, description = 'User not found')
     else:
         return render_template('login.html')
 

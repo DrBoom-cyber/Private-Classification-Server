@@ -17,8 +17,8 @@ class DataManager():
         item_key = self.available_items.pop()
         self.in_use.append(item_key)
         return {
-            'image_url' : self.data_map[item_key]
-            'item_key' : item_key
+            'image_url' : self.data_map[item_key],
+            'item_key' : item_key,
             'options' : self.output_config.keys()
         }
 
