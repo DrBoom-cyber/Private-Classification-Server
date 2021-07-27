@@ -33,7 +33,7 @@ login_manager.login_view = 'login'
 def index():
     return redirect('login')
 
-@app.route('/login', methods = ['GET','POST'])
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -89,4 +89,6 @@ def classify():
     elif request.method == 'POST':
         label = request.form['label']
         hash = request.form['hash']
-        #resolve item
+        return {
+            'response' : 'success'
+        }
