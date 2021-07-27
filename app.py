@@ -86,9 +86,11 @@ def classify():
                 'hash' : 'pretend_hash'
             }
             return render_template('index.html', image_data = data, labels = {'a': 'letter_a', 's': 'letter_s', 'd': 'letter_d'})
+    
     elif request.method == 'POST':
         label = request.form['label']
         hash = request.form['hash']
+
         return {
             'response' : 'success'
         }
