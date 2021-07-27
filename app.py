@@ -65,7 +65,16 @@ def page_not_found(e):
 def load_user(user_id):
     return User.query.filter_by(id = user_id).first()
 
-@app.route('/classify')
+@app.route('/home', methods = ['GET', 'POST'])
 @login_required
 def home():
     return render_template('index.html', name = current_user.username)
+
+@app.route('/classify', methods = ['GET'])
+@login_required
+def classify():
+    get_next = request.form.get('get-item')
+    if not get_next is None and get_next is True:
+        return 'static\\assets\image\\filler.jpg'
+    else:
+        return render_template('index.html', image_path = 'static\\assets\image\\filler.jpg', labels = {'a': 'letter_a', 's': 'letter_s', 'd': 'letter_d'})
