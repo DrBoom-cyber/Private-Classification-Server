@@ -42,6 +42,10 @@ def login():
         user = User.query.filter_by(username = username).first()
         if not user is None:
             if user.verify_password(password):
+<<<<<<< HEAD
+=======
+                login_user(user)
+>>>>>>> 693c02c66a6c003fce9cc97b8b85313ace14bda0
                 return redirect('classify')
             else:
                 return abort(401, description = 'Password is incorrect')
@@ -58,11 +62,11 @@ def logout():
 
 @app.errorhandler(401)
 def page_not_found(e):
-    return Response('<p>Login failed</p>')
+    return Response(f'<p>Login failed: {e.description}</p>')
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User(user_id)
+    return User.query.filter_by(id = user_id).first()
 
 @app.route('/classify')
 @login_required
