@@ -1,9 +1,21 @@
-<link rel="stylesheet" type="text/css" href="login.css" media=”screen” />
-<script src="login.js"></script>
+<link rel="stylesheet" href="/static/assets/css/index.css" />
+<link rel="stylesheet" href="/static/assets/css/fonts.css" />
+<link rel="stylesheet" href="/static/assets/css/shared.css" />
+<script src="/static/assets/js/index.js"></script>
+<script type = "text/javascript" scr="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
 
 
 <body>
-    <div id="login-container" class="bounded-padding">
-
+    <div id="legend" class="text-center">
+        <span>{% correct_label %}: Press 'A' or 'Left Arrow'</span>
+        <span>{% incorrect_label %}: Press 'D' or 'Right Arrow'</span>
     </div>
+    <div><span id="img-counter">Images Categorized: 0</span></div>
+    <div>
+        <img src="{% img_path %}" id="display-img" />
+    </div>
+
+
 </body>
