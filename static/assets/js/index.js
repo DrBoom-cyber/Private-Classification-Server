@@ -1,10 +1,12 @@
 document.addEventListener('keydown', function (event) {
     if (event.key === 'd') {
       $.ajax({
-        type: "GET",
-        url: "classify",
-        data: {label_selected = label_selected, img_hash = img_hash},
-        type: "json"
+        type : "GET",
+        url : "classify",
+        data : {
+          label_selected : label_selected,
+          img_hash : img_hash},
+        type : "json"
 
       });
     }
