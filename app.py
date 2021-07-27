@@ -36,17 +36,14 @@ def index():
 @app.route('/login', methods = ['GET','POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get['username']
-        password = request.form.get['password']
+        username = request.form['username']
+        password = request.form['password']
 
         user = User.query.filter_by(username = username).first()
         if not user is None:
             if user.verify_password(password):
-<<<<<<< HEAD
-=======
                 login_user(user)
->>>>>>> 693c02c66a6c003fce9cc97b8b85313ace14bda0
-                return redirect('classify')
+                return url_for('classify')
             else:
                 return abort(401, description = 'Password is incorrect')
         else:
@@ -73,11 +70,23 @@ def load_user(user_id):
 def home():
     return render_template('index.html', name = current_user.username)
 
-@app.route('/classify', methods = ['GET'])
+@app.route('/classify', methods = ['GET', 'POST'])
 @login_required
 def classify():
-    get_next = request.form.get('get-item')
-    if not get_next is None and get_next is True:
-        return 'static\\assets\image\\filler.jpg'
-    else:
-        return render_template('index.html', image_path = 'static\\assets\image\\filler.jpg', labels = {'a': 'letter_a', 's': 'letter_s', 'd': 'letter_d'})
+    if request.method == 'GET':
+        get_next = request.form.get('get-item')
+        if not get_next is None and get_next is True:
+            return {
+                'image_path': 'static\\assets\image\\filler.jpg',
+                'hash' : 'pretend_hash'
+            }
+        else:
+            data = {
+                'image_path' : 'static\\assets\image\\filler.jpg',
+                'hash' : 'pretend_hash'
+            }
+            return render_template('index.html', image_data = data, labels = {'a': 'letter_a', 's': 'letter_s', 'd': 'letter_d'})
+    elif request.method == 'POST':
+        label = request.form['label']
+        hash = request.form['hash']
+        #resolve item

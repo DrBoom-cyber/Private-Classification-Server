@@ -6,6 +6,9 @@ function submitLoginInfo() {
         type: 'POST',
         url: "login",
         data: {username: username, password: password},
-        dataType: "text"
+        dataType: "text",
+        success: function(response) {
+          window.location.href = response;
+        }
       });
 }
