@@ -8,12 +8,12 @@
 
 <body>
     <div id="legend" class="text-center">
-        {% for key, label in  labels.items() %}
+        {% for key, label in data['legend'].items() %}
             <span>{{ label }}: Press {{ key }}</span>
         {% endfor %}
     </div>
     <div><span id="img-counter">Images Categorized: 0</span></div>
     <div>
-        <img src="{{ image_data['image_path'] }}" id="display-img" />
+        <img src="file://{{ data['image_url'] }}" id="display-img" />
     </div>
 </body>

@@ -21,6 +21,16 @@ db = SQLAlchemy(app)
 #Local database objects
 from database import User
 
+#Maybe change this to load from a global config file
+from backend import DataManager
+data_manager = DataManager(
+    data_path = 'toy_data/some_data_folder',
+    output_config = {
+        'letter_a' : 'toy_data/letter_a',
+        'not_letter_a' : 'toy_data/not_letter_a'
+    }
+)
+
 app.config.update(
     SECRET_KEY = 'temp_key'
 )
@@ -75,17 +85,13 @@ def home():
 def classify():
     if request.method == 'GET':
         get_next = request.form.get('get-item')
+        data = data_manager.request_item()
+        legend = { key : label for key, label in zip(['w', 'a', 's', 'd'], data['labels'])}
+        data['legend'] = legend
         if not get_next is None and get_next is True:
-            return {
-                'image_path': 'static\\assets\image\\filler.jpg',
-                'hash' : 'pretend_hash'
-            }
+            return data
         else:
-            data = {
-                'image_path' : 'static\\assets\image\\filler.jpg',
-                'hash' : 'pretend_hash'
-            }
-            return render_template('index.html', image_data = data, labels = {'a': 'letter_a', 's': 'letter_s', 'd': 'letter_d'})
+            return render_template('index.html', data = data, user = current_user)
     
     elif request.method == 'POST':
         label = request.form['label']

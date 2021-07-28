@@ -7,10 +7,14 @@ class DataManager():
         self.data_path = data_path
         self.output_config = output_config
 
+        for item in self.output_config.values():
+            if not os.path.exists(item):
+                os.mkdir(item)
+
         self.hash_length = hash_length
         self.data_map = self.generate_hashes()
 
-        self.available_items = self.data_map.keys()
+        self.available_items = list(self.data_map.keys())
         self.in_use = []
 
     def request_item(self):
@@ -19,7 +23,7 @@ class DataManager():
         return {
             'image_url' : self.data_map[item_key],
             'item_key' : item_key,
-            'options' : self.output_config.keys()
+            'labels' : self.output_config.keys()
         }
 
     def resolve_item(self, item_key, resolution_key):
@@ -35,5 +39,5 @@ class DataManager():
     def generate_hashes(self):
         data_map = {}
         for path in os.listdir(self.data_path):
-            data_map[os.urandom(self.hash_length)] = path
+            data_map[os.urandom(self.hash_length)] = os.path.abspath(os.path.join(self.data_path, path))
         return data_map
